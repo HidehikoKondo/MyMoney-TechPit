@@ -1,2 +1,2 @@
-# MyMoneyWebApp
+# MyMoney-TechPit
 TechPitのJavaScript教材の家計簿アプリサンプルコード
