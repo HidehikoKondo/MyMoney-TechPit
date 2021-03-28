@@ -1,2 +1,3 @@
 # MyMoney-TechPit
-TechPitのJavaScript教材の家計簿アプリサンプルコード
+
+TechPit の JavaScript 教材の家計簿アプリサンプルコード
