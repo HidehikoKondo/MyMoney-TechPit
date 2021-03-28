@@ -1,12 +1,102 @@
 <!DOCTYPE html>
+<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css">
 <html>
 
 <head>
     <title>MyMoney SampleCode</title>
+    <style>
+        .navi {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .navi button {
+            flex-grow: 1;
+            margin: 0 10px 10px 0;
+        }
+
+        section {
+            background-color: white;
+            margin: 0 0 20px 0;
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>MyMoney SampleCode</h1>
+    <header>
+        <h1>MyMoney</h1>
+        <div class="navi">
+            <button>ホーム</button>
+            <button>入力</button>
+            <button>一覧</button>
+            <button>グラフ</button>
+        </div>
+    </header>
+    <article>
+        <!-- 入力 -->
+        <h2>入力</h2>
+        <hr>
+        <section>
+            <label>収支</label>
+            <input name="shushi" type="radio">収入
+            <input name="shushi" type="radio" checked>支出
+            <label>日付</label>
+            <input type="date">
+            <label>カテゴリ</label>
+            <select>
+                <option>光熱費</option>
+                <option>家賃</option>
+                <option>交際費</option>
+                <option>食費</option>
+                <option>その他</option>
+            </select>
+            <label>金額</label>
+            <input type="number" placeholder="金額を記入">円
+            <label>摘要</label>
+            <input type="text" placeholder="買ったものを記入">
+        </section>
+
+        <!-- 入出金一覧 -->
+        <h2>入出金一覧</h2>
+        <hr>
+        <section>
+            <table>
+                <tr>
+                    <th>日付</th>
+                    <th>カテゴリ</th>
+                    <th>金額</th>
+                    <th>摘要</th>
+                </tr>
+                <tr>
+                    <td>●月●日</td>
+                    <td>▲▲▲▲</td>
+                    <td>■■■■■円</td>
+                    <td>▼▼▼▼▼</td>
+                </tr>
+
+            </table>
+        </section>
+
+        <!-- グラフ -->
+        <h2>グラフ</h2>
+        <hr>
+        <section>
+            <label>カテゴリ毎の割合</label>
+            <blockquote>ここに円グラフを表示します</blockquote>
+            <label>月次の推移</label>
+            <blockquote>ここに棒グラフ、折れ線グラフを表示します</blockquote>
+        </section>
+
+    </article>
+    <footer>
+        &copy;MyMoney
+    </footer>
+
 </body>
 
 </html>
