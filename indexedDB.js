@@ -46,10 +46,10 @@ function deleteDB(){
 
 //データの挿入
 function insertData(){
-    var uniqueID = new Date().getTime().toString(16);
+var uniqueID = new Date().getTime().toString(16);
     var date = new Date();
-    var toDay = date.getFullYear() + "/" +  date.getMonth() + 1 + "/"+ date.getDate()  + "/" + date.getDay();
-    var data = {id : uniqueID, date : toDay, category:"光熱費", amount:1000, memo:"メモ"};
+    var toDay = date.getFullYear() + "/" +  (date.getMonth()+1)+  "/"+ date.getDate() ;
+    var data = {id : uniqueID, balance: "income",date : toDay, category:"光熱費", amount:1000, memo:"メモ"};
 
     var openDB = indexedDB.open(dbName, dbVersion);
     openDB.onsuccess = function(event){
@@ -109,6 +109,7 @@ function createList(){
                 <table>
                     <tr>
                         <th>日付</th>
+                        <th>収支</th>
                         <th>カテゴリ</th>
                         <th>金額</th>
                         <th>摘要</th>
@@ -122,6 +123,7 @@ function createList(){
                 table+= `
                     <tr>
                         <td>${element.date}</td>
+                        <td>${element.balance}</td>
                         <td>${element.category}</td>
                         <td>${element.amount}</td>
                         <td>${element.memo}</td>
