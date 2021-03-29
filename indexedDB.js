@@ -47,10 +47,11 @@ function deleteDB(){
 //データの挿入
 function insertData(){
     var uniqueID = new Date().getTime().toString(16);
-    var data = {id : uniqueID, name : 'テスト4', test:"test"};
+    var date = new Date();
+    var toDay = date.getFullYear() + "/" +  date.getMonth() + 1 + "/"+ date.getDate()  + "/" + date.getDay();
+    var data = {id : uniqueID, date : toDay, category:"光熱費", amount:1000, memo:"メモ"};
 
-    var openDB = indexedDB.open(dbName);
-
+    var openDB = indexedDB.open(dbName, dbVersion);
     openDB.onsuccess = function(event){
         var db = event.target.result;
         var trans = db.transaction(storeName, 'readwrite');
@@ -72,9 +73,8 @@ function insertData(){
 
 //データの取得
 function selectData(){
-    var keyValue = 'A5'
     var openDB = indexedDB.open(dbName);
-
+    var data = [];
     //全件取得
     openDB.onsuccess = function(event){
         var db = event.target.result;
@@ -82,7 +82,57 @@ function selectData(){
         var store = trans.objectStore(storeName);
         store.getAll().onsuccess = function(event) {
             const rows = event.target.result;
+            data = data.concat(rows);
+        }
+    }
+    console.log(data);
+    return;
+}
+
+function createList(){
+    var openDB = indexedDB.open(dbName);
+    //全件取得
+    
+    openDB.onsuccess = function(event){
+        var db = event.target.result;
+        var trans = db.transaction(storeName, 'readonly');
+        var store = trans.objectStore(storeName);
+        store.getAll().onsuccess = function(event) {
+            const rows = event.target.result;
             console.log(rows);
+            console.log(rows[0]);
+
+
+            var section = document.getElementById("list");
+            //バッククオートでヒアドキュメント
+            var table  = `
+                <table>
+                    <tr>
+                        <th>日付</th>
+                        <th>カテゴリ</th>
+                        <th>金額</th>
+                        <th>摘要</th>
+                        <th>削除
+                    </th>
+                </tr>
+            `;
+
+            rows.forEach(element => {
+                console.log(element);
+                table+= `
+                    <tr>
+                        <td>${element.date}</td>
+                        <td>${element.category}</td>
+                        <td>${element.amount}</td>
+                        <td>${element.memo}</td>
+                        <td><button>×</button></td>
+                    </tr>
+                `;
+            });
+
+            table += `</table>`
+            section.innerHTML = table;
+
         }
     }
 }

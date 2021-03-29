@@ -78,18 +78,17 @@
             <div class="submit">
                 <button>送信する</button>
             </div>
-
         </section>
         <script>
             // deleteDB();
-            openDB();
-            insertData();
-            selectData();
+            // openDB();
+            // insertData();
+            // selectData();
         </script>
         <!-- 入出金一覧 -->
         <h2>入出金一覧</h2>
         <!-- <hr> -->
-        <section>
+        <section id="list">
             <table>
                 <tr>
                     <th>日付</th>
@@ -106,7 +105,9 @@
                     <td>▼▼▼▼▼</td>
                     <td><button>×</button></td>
                 </tr>
-
+                <script>
+                    createList();
+                </script>
             </table>
         </section>
 
@@ -118,7 +119,6 @@
             <script>displayPieChart();</script>
             <canvas id="barChart"></canvas>
             <script>displayBarChart();</script>
-
         </section>
 
     </article>
