@@ -14,13 +14,13 @@ https://oxal.org/projects/sakura/
 ・DBに登録<br />
 
 ## JS IndexedDB
-DB作成、接続<br />
+・DB作成、接続<br />
 ・データ挿入<br />
 ・データ読み込み、表示<br />
 ・ES6のヒアドキュメント、ヒアドキュメント内での変数利用<br />
 ・getElementById("xxx")で要素取得<br />
-・InnerHTMLで要素書き換え。
-
+・InnerHTMLで要素書き換え。<br />
+・forEachの繰り返し
 
 ## JS グラフ
 chart.jsのverticalとpieを使う<br />
