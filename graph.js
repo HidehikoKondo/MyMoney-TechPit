@@ -40,30 +40,30 @@ function displayBarChart(){
 
 //円グラフの表示
 function displayPieChart(){
-            var ctx = document.getElementById("pieChart");
-        var myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ["家賃", "光熱費", "交際費", "その他"],
-                datasets: [{
-                    backgroundColor: [
-                        "#EB5757",
-                        "#6FCF97",
-                        "#56CCF2",
-                        "#F2994A",
-                        "#F2C94C",
-                        "#2F80ED",
-                        "#9B51E0",
-                        "#BB6BD9",
-                    ],
-                    data: [20, 30, 40, 10]
-                }]
-            },
-            options: {
-                title: {
-                    display: true,
-                    text: 'カテゴリごとの収支割合'
-                }
+    var ctx = document.getElementById("pieChart");
+    var myPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ["家賃", "光熱費", "交際費", "その他"],
+            datasets: [{
+                backgroundColor: [
+                    "#EB5757",
+                    "#6FCF97",
+                    "#56CCF2",
+                    "#F2994A",
+                    "#F2C94C",
+                    "#2F80ED",
+                    "#9B51E0",
+                    "#BB6BD9",
+                ],
+                data: [20, 30, 40, 10]
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'カテゴリごとの収支割合'
             }
-        });
+        }
+    });
 }

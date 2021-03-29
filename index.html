@@ -5,6 +5,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 <!-- グラフ表示のJavaScriptの読み込み -->
 <script src="graph.js"></script>
+<!--IndexedDB関連のjs読み込み-->
+<script src="indexedDB.js">s</script>
 
 <html>
 
@@ -25,8 +27,6 @@
             padding-bottom: 5px;
             border-bottom: #008b6a solid 2px;
         }
-
-
 
         .submit {
             display: block;
@@ -80,7 +80,12 @@
             </div>
 
         </section>
-
+        <script>
+            // deleteDB();
+            openDB();
+            insertData();
+            selectData();
+        </script>
         <!-- 入出金一覧 -->
         <h2>入出金一覧</h2>
         <!-- <hr> -->
@@ -91,12 +96,15 @@
                     <th>カテゴリ</th>
                     <th>金額</th>
                     <th>摘要</th>
+                    <th>削除
+                    </th>
                 </tr>
                 <tr>
                     <td>●月●日</td>
                     <td>▲▲▲▲</td>
                     <td>■■■■■円</td>
                     <td>▼▼▼▼▼</td>
+                    <td><button>×</button></td>
                 </tr>
 
             </table>
