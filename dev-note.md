@@ -17,3 +17,5 @@ https://www.chartjs.org/samples/latest/
 
 CDN
 https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js
+
+棒グラフも円グラフも配列でグラフの項目名と値を渡せばＯＫ
