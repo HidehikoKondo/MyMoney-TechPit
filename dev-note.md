@@ -14,7 +14,7 @@ https://oxal.org/projects/sakura/
 ・DBに登録
 
 ## JS IndexedDB
-・DB作成、接続
+DB作成、接続
 ・データ挿入
 ・データ読み込み、表示
 ・ES6のヒアドキュメント、ヒアドキュメント内での変数利用
