@@ -12,3 +12,8 @@ https://oxal.org/projects/sakura/
 ## JS IndexedDB
 
 ## JS グラフ
+chart.jsのverticalとpieを使う
+https://www.chartjs.org/samples/latest/
+
+CDN
+https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js
