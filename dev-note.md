@@ -8,8 +8,13 @@ sakura.cssを使って手軽に見た目変更
 https://oxal.org/projects/sakura/
 
 ## JS 入力
+・フォームの入力チェック
+・フォームの有効無効の切り替え（収入、支出の入力切替時）
+・収入、支出の判定
+・DBに登録
 
 ## JS IndexedDB
+
 
 ## JS グラフ
 chart.jsのverticalとpieを使う
