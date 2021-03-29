@@ -1,5 +1,11 @@
 <!DOCTYPE html>
+<!--sakuraの読み込み-->
 <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-earthly.css" type="text/css">
+<!-- chart.jsの読み込み -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<!-- グラフ表示のJavaScriptの読み込み -->
+<script src="graph.js"></script>
+
 <html>
 
 <head>
@@ -29,6 +35,10 @@
 
         footer {
             text-align: center;
+        }
+
+        canvas {
+            margin-bottom: 50px;
         }
     </style>
 </head>
@@ -96,16 +106,19 @@
         <h2>グラフ</h2>
         <!-- <hr> -->
         <section>
-            <label>カテゴリ毎の割合</label>
-            <pre>ここに円グラフを表示します</pre>
-            <label>月次の推移</label>
-            <pre>ここに棒グラフ、折れ線グラフを表示します</pre>
+            <canvas id="pieChart"></canvas>
+            <script>displayPieChart();</script>
+            <canvas id="barChart"></canvas>
+            <script>displayBarChart();</script>
+
         </section>
 
     </article>
     <footer>
         &copy;MyMoney
     </footer>
+
+
 
 </body>
 
