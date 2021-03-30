@@ -104,6 +104,9 @@ function createList() {
 
             table += `</table>`;
             section.innerHTML = table;
+
+            //円グラフ作成
+            displayPieChart(rows);
         };
     };
 }
