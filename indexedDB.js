@@ -110,6 +110,11 @@ function createList() {
 
 //フォームの内容をDBに登録する
 function regist() {
+    //入力チェック。falseが返却されたら登録処理を中断
+    if (!inputCheck()) {
+        return;
+    }
+
     //ラジオボタンの取得
     var radio = document.getElementsByName("balance");
     var balance;
@@ -120,17 +125,20 @@ function regist() {
             break;
         }
     }
-    if (radio == "収入") {
-        balance == 収入;
-    }
 
     var date = document.getElementById("date").value;
-    var category = document.getElementById("category").value;
     var amount = document.getElementById("amount").value;
     var memo = document.getElementById("memo").value;
+    var category = document.getElementById("category").value;
+    //ラジオボタンが収入を選択時はカテゴリを「収入」とする
+    if (balance == "収入") {
+        category = "収入";
+    }
 
+    console.log("category:" + category);
     insertData(balance, date, category, amount, memo);
     createList();
+    alert("登録しました");
 }
 
 //データの挿入
