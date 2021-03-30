@@ -1,3 +1,4 @@
+/* ナビゲーションのレイアウト */
 .navi {
     display: flex;
     justify-content: space-around;
@@ -8,6 +9,7 @@
     margin: 0 10px 10px 0;
 }
 
+/* 入力欄のレイアウト */
 #inputSection {
     display: flex;
     justify-content: space-around;
@@ -16,11 +18,8 @@
     flex-grow: 1;
     margin: 0 10px 10px 0;
 }
-h2 {
-    padding-bottom: 5px;
-    border-bottom: #008b6a solid 2px;
-}
 
+/* 登録ボタンのスタイル */
 .submit {
     display: block;
     text-align: center;
@@ -30,12 +29,20 @@ h2 {
     height: 40px;
 }
 
-footer {
-    text-align: center;
+/* 見出しのスタイル */
+h2 {
+    padding-bottom: 5px;
+    border-bottom: #008b6a solid 2px;
 }
 
+/* 入出金一覧をスクロール */
 #list {
     height: 400px;
     overflow: scroll;
     overflow-x: hidden;
+}
+
+/* フッターのレイアウト */
+footer {
+    text-align: center;
 }
