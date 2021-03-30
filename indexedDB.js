@@ -41,41 +41,6 @@ function deleteDB() {
     };
 }
 
-//データの挿入
-function insertData() {
-    var uniqueID = new Date().getTime().toString(16);
-    var date = new Date();
-    var toDay =
-        date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
-    var data = {
-        id: uniqueID,
-        balance: "income",
-        date: toDay,
-        category: "光熱費",
-        amount: 1000,
-        memo: "メモ",
-    };
-
-    var openDB = indexedDB.open(dbName, dbVersion);
-    openDB.onsuccess = function (event) {
-        var db = event.target.result;
-        var trans = db.transaction(storeName, "readwrite");
-        var store = trans.objectStore(storeName);
-        var addData = store.add(data);
-
-        addData.onsuccess = function () {
-            console.log("データが挿入できました");
-        };
-        addData.onerror = function () {
-            console.log("データが挿入できませんでした");
-        };
-        trans.oncomplete = function () {
-            // トランザクション完了時(putReq.onsuccessの後)に実行
-            console.log("トランザクション完了しました");
-        };
-    };
-}
-
 //データの取得
 function selectData() {
     var openDB = indexedDB.open(dbName);
@@ -116,7 +81,7 @@ function createList() {
                         <th>収支</th>
                         <th>カテゴリ</th>
                         <th>金額</th>
-                        <th>摘要</th>
+                        <th>メモ</th>
                         <th>削除
                     </th>
                 </tr>
@@ -131,7 +96,8 @@ function createList() {
                         <td>${element.category}</td>
                         <td>${element.amount}</td>
                         <td>${element.memo}</td>
-                        <td><button onClick="deleteData('${element.id}')">×</button></td>
+                        <td><button onClick="deleteData('${element.id}')">×</button>
+                        </td>
                     </tr>
                 `;
             });
@@ -142,12 +108,86 @@ function createList() {
     };
 }
 
+//フォームの内容をDBに登録する
+function regist() {
+    //ラジオボタンの取得
+    var radio = document.getElementsByName("balance");
+    var balance;
+    //ここでfor文の練習
+    for (let i = 0; i < radio.length; i++) {
+        if (radio[i].checked) {
+            balance = radio[i].value;
+            break;
+        }
+    }
+    if (radio == "収入") {
+        balance == 収入;
+    }
+
+    var date = document.getElementById("date").value;
+    var category = document.getElementById("category").value;
+    var amount = document.getElementById("amount").value;
+    var memo = document.getElementById("memo").value;
+
+    insertData(balance, date, category, amount, memo);
+    createList();
+}
+
+//データの挿入
+function insertData(balance, date, category, amount, memo) {
+    //一意のIDを現在の日時から作成
+    var uniqueID = new Date().getTime().toString(16);
+    console.log(date);
+    //DBに登録するための連想配列のデータを作成
+    var data = {
+        id: uniqueID,
+        balance: balance,
+        date: String(date),
+        category: category,
+        amount: amount,
+        memo: memo,
+    };
+
+    //データベースを開く
+    var openDB = indexedDB.open(dbName, dbVersion);
+    openDB.onupgradeneeded = function (event) {
+        var db = event.target.result;
+        console.log("zzz");
+    };
+    //開いたらデータの登録を実行
+    openDB.onsuccess = function (event) {
+        var db = event.target.result;
+        var transaction = db.transaction(storeName, "readwrite");
+        transaction.oncomplete = function (event) {
+            console.log("transaction complete");
+        };
+        transaction.onerror = function (event) {
+            console.log("transaction error");
+        };
+
+        var store = transaction.objectStore(storeName);
+        var addData = store.add(data);
+
+        addData.onsuccess = function () {
+            console.log("データが挿入できました");
+        };
+        addData.onerror = function () {
+            console.log("データが挿入できませんでした");
+        };
+
+        db.close();
+    };
+    //データベースの開けなかった時の処理
+    openDB.onerror = function (event) {
+        console.log("データベースに接続できませんでした");
+    };
+}
+
 function deleteData(id) {
     //データベースを開く
     var openDB = indexedDB.open(dbName, dbVersion);
     openDB.onupgradeneeded = function (event) {
         var db = event.target.result;
-        db.createObjectStore(storeName, { keyPath: "id" });
     };
     //開いたら削除実行
     openDB.onsuccess = function (event) {

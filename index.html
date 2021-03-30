@@ -64,13 +64,15 @@
         <h2>入力</h2>
         <!-- <hr> -->
         <section>
+            <!-- <form id="form"> -->
             <label>収支</label>
-            <input name="shushi" type="radio">収入
-            <input name="shushi" type="radio" checked>支出
+            <input name="balance" type="radio" value="収入">収入
+            <input name="balance" type="radio" value="支出" checked>支出
             <label>日付</label>
-            <input type="date">
+            <input type="date" id="date">
             <label>カテゴリ</label>
-            <select>
+            <select id="category">
+                <option selected>-選択してください-</option>
                 <option>光熱費</option>
                 <option>家賃</option>
                 <option>交際費</option>
@@ -78,12 +80,13 @@
                 <option>その他</option>
             </select>
             <label>金額</label>
-            <input type="number" placeholder="金額を記入">円
-            <label>摘要</label>
-            <input type="text" placeholder="買ったものを記入">
+            <input type="number" id="amount" placeholder="金額を記入">円
+            <label>メモ</label>
+            <input type="text" id="memo" placeholder="買ったものを記入">
             <div class="submit">
-                <button>送信する</button>
+                <button onclick="regist();">登録する</button>
             </div>
+            <!-- </form> -->
         </section>
         <script>
             // deleteDB();
@@ -100,7 +103,7 @@
                     <th>収支</th>
                     <th>カテゴリ</th>
                     <th>金額</th>
-                    <th>摘要</th>
+                    <th>メモ</th>
                     <th>削除
                     </th>
                 </tr>
