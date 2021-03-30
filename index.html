@@ -1,132 +1,73 @@
 <!DOCTYPE html>
-<!--sakuraの読み込み-->
-<link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-earthly.css" type="text/css">
-<!-- chart.jsの読み込み -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-<!-- グラフ表示のJavaScriptの読み込み -->
-<script src="graph.js"></script>
-
-<!--フォーム入力チェックのjs読み込み-->
-<script src="inputCheck.js">s</script>
-
-<!--IndexedDB関連のjs読み込み-->
-<script src="indexedDB.js">s</script>
-
-
 <html>
 
 <head>
     <title>MyMoney SampleCode</title>
-    <style>
-        .navi {
-            display: flex;
-            justify-content: space-around;
-        }
+    <!--スタイルシートの読み込み-->
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-earthly.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
 
-        .navi button {
-            flex-grow: 1;
-            margin: 0 10px 10px 0;
-        }
-
-        h2 {
-            padding-bottom: 5px;
-            border-bottom: #008b6a solid 2px;
-        }
-
-        .submit {
-            display: block;
-            text-align: center;
-        }
-
-        footer {
-            text-align: center;
-        }
-
-        canvas {
-            margin-bottom: 50px;
-        }
-
-        #list {
-            height: 400px;
-            overflow: scroll;
-            overflow-x: hidden;
-        }
-    </style>
+    <!--IndexedDB関連のjs読み込み-->
+    <script src="indexedDB.js">s</script>
+    <!-- グラフ表示のJavaScriptの読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="graph.js"></script>
+    <!--フォーム入力チェックのjs読み込み-->
+    <script src="inputCheck.js">s</script>
 </head>
 
 <body>
     <header>
-        <h1>MyMoney</h1>
+        <h1 id="home">MyMoney</h1>
         <div class="navi">
-            <button>ホーム</button>
-            <button>入力</button>
-            <button>一覧</button>
-            <button>グラフ</button>
+            <button onclick="window.location.hash = '#home'">ホーム</button>
+            <button onclick="window.location.hash = '#input'">入力</button>
+            <button onclick="window.location.hash = '#inOutList'">入出金一覧</button>
+            <button onclick="window.location.hash = '#graph'">グラフ</button>
         </div>
     </header>
     <article>
         <!-- 入力 -->
-        <h2>入力</h2>
-        <!-- <hr> -->
-        <section>
-            <!-- <form id="form"> -->
-            <label>収支</label>
-            <input name="balance" type="radio" value="収入">収入
-            <input name="balance" type="radio" value="支出" checked>支出
-            <label>日付</label>
-            <input type="date" id="date">
-            <label>カテゴリ</label>
-            <select id="category">
-                <option selected>-選択してください-</option>
-                <option>光熱費</option>
-                <option>家賃</option>
-                <option>交際費</option>
-                <option>食費</option>
-                <option>その他</option>
-            </select>
-            <label>金額</label>
-            <input type="number" id="amount" placeholder="金額を記入">円
-            <label>メモ</label>
-            <input type="text" id="memo" placeholder="買ったものを記入">
-            <div class="submit">
-                <button onclick="regist();">登録する</button>
+        <h2 id="input">入力</h2>
+        <section id="inputSection">
+            <div>
+                <label>収支</label>
+                <input name="balance" type="radio">収入
+                <input name="balance" type="radio" checked>支出
+                <label>日付</label>
+                <input type="date" id="date">
+                <label>カテゴリ</label>
+
+                <select id="category">
+                    <option>光熱費</option>
+                    <option>家賃</option>
+                    <option>交際費</option>
+                    <option>食費</option>
+                    <option>その他</option>
+                </select>
+
             </div>
-            <!-- </form> -->
+            <div>
+                <label>金額</label>
+                <input type="number" id="amount" placeholder="金額を記入">円
+                <label>メモ</label>
+                <input type="text" id="memo" placeholder="買ったものを記入">
+            </div>
         </section>
-        <script>
-            // deleteDB();
-            openDB();
-            // insertData();selectData();
-        </script>
+        <div class="submit">
+            <button onclick="regist();">登録する</button>
+        </div>
+
         <!-- 入出金一覧 -->
-        <h2>入出金一覧</h2>
+        <h2 id="inOutList">入出金一覧</h2>
         <section id="list">
-            <table>
-                <tr>
-                    <th>日付</th>
-                    <th>収支</th>
-                    <th>カテゴリ</th>
-                    <th>金額</th>
-                    <th>メモ</th>
-                    <th>削除
-                    </th>
-                </tr>
-                <tr>
-                    <td>●月●日</td>
-                    <td>支出</td>
-                    <td>▲▲▲▲</td>
-                    <td>■■■■■円</td>
-                    <td>▼▼▼▼▼</td>
-                    <td><button>×</button></td>
-                </tr>
-                <script>
-                    createList();
-                </script>
-            </table>
+            <script>
+                createList();
+            </script>
         </section>
 
         <!-- グラフ -->
-        <h2>グラフ</h2>
+        <h2 id="graph">グラフ</h2>
         <!-- <hr> -->
         <section>
             <canvas id="pieChart"></canvas>

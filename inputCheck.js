@@ -18,17 +18,21 @@ function inputCheck() {
     if (date == "") {
         result = false;
         alert("日付が未記入です");
+        return;
     }
     if (category == "-選択してください-") {
         result = false;
         alert("カテゴリを選択してください");
+        return;
     }
     if (amount == "" || amount == 0) {
         result = false;
         alert("金額が未記入です");
+        return;
     }
     if (memo == "") {
         alert("メモが未記入です");
+        return;
     }
     return result;
 }
