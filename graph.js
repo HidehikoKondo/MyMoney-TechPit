@@ -91,16 +91,15 @@ function displayPieChart(rows) {
     //一覧からデータをカテゴリ毎に取り出して集計
     var amount = 0;
     var category = "";
-    rows.forEach((element) => {
+    rows.forEach(function (element) {
         category = element.category;
-        console.log("xxx");
-        console.log(pieChartData[category]);
-        if (pieChartData[category] === undefined) {
-            console.log("yyy");
-            pieChartData[category] = Number(element.amount);
-        } else {
-            console.log("zzzz");
-            pieChartData[category] += Number(element.amount);
+        if (category != "収入") {
+            console.log(pieChartData[category]);
+            if (pieChartData[category] === undefined) {
+                pieChartData[category] = Number(element.amount);
+            } else {
+                pieChartData[category] += Number(element.amount);
+            }
         }
     });
     console.log(pieChartData);
@@ -139,7 +138,7 @@ function displayPieChart(rows) {
         options: {
             title: {
                 display: true,
-                text: "カテゴリごとの収支割合",
+                text: "カテゴリ毎の支出割合",
             },
         },
     });
