@@ -40,3 +40,7 @@ function inputCheck() {
     }
     return result;
 }
+
+function disableSelectBox(disabled) {
+    document.getElementById("category").disabled = disabled;
+}

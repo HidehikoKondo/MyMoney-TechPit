@@ -31,13 +31,14 @@
         <section id="inputSection">
             <div>
                 <label>収支</label>
-                <input name="balance" type="radio" value="収入">収入
-                <input name="balance" type="radio" value="支出" checked>支出
+                <input name="balance" type="radio" value="収入" onclick="disableSelectBox(true);">収入
+                <input name="balance" type="radio" value="支出" onclick="disableSelectBox(false);">支出
                 <label>日付</label>
                 <input type="date" id="date">
                 <label>カテゴリ</label>
 
                 <select id="category">
+                    <option>-選択してください-</option>
                     <option>食費</option>
                     <option>趣味</option>
                     <option>交際費</option>
