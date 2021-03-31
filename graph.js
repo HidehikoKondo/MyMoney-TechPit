@@ -1,5 +1,5 @@
 //棒グラフの表示
-function displayBarChart() {
+function displayBarChart(rows) {
     var ctx = document.getElementById("barChart");
     var myBarChart = new Chart(ctx, {
         type: "bar",
@@ -93,14 +93,18 @@ function displayPieChart(rows) {
     var category = "";
     rows.forEach((element) => {
         category = element.category;
-        console.log("xxx");
-        console.log(pieChartData[category]);
-        if (pieChartData[category] === undefined) {
-            console.log("yyy");
-            pieChartData[category] = Number(element.amount);
-        } else {
-            console.log("zzzz");
-            pieChartData[category] += Number(element.amount);
+        console.log("xxx" + category);
+        //収入は除外する
+        if (category != "収入") {
+            console.log(pieChartData[category]);
+            if (pieChartData[category] === undefined) {
+                console.log("yyy");
+                pieChartData[category] = Number(element.amount);
+            } else {
+                console.log("zzzz");
+
+                pieChartData[category] += Number(element.amount);
+            }
         }
     });
     console.log(pieChartData);
@@ -139,7 +143,7 @@ function displayPieChart(rows) {
         options: {
             title: {
                 display: true,
-                text: "カテゴリごとの収支割合",
+                text: "カテゴリ毎の支出割合",
             },
         },
     });
