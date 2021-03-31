@@ -3,30 +3,28 @@ const dbVersion = 1;
 const storeName = "kakeiboStore";
 var db;
 
-function openDB() {
-    //データベースに名前を付けて作成する
-    var openDB = indexedDB.open(dbName, dbVersion);
+//データベースに名前を付けて作成する
+var openDB = indexedDB.open(dbName, dbVersion);
 
-    //↑で決めた名前のデータベースに接続する。作成済みのデータベースがなければ新規作成する
-    openDB.onupgradeneeded = function (event) {
-        //onupgradeneededは、DBの新規作成時とバージョン更新時に発生するイベントです。
-        console.log("データベースを新規作成、またはバージョン更新しました");
+//↑で決めた名前のデータベースに接続する。作成済みのデータベースがなければ新規作成する
+openDB.onupgradeneeded = function (event) {
+    //onupgradeneededは、DBの新規作成時とバージョン更新時に発生するイベントです。
+    //ストア作成
+    var db = event.target.result;
+    db.createObjectStore(storeName, { keyPath: "id" });
 
-        //ストア作成
-        var db = event.target.result;
-        db.createObjectStore(storeName, { keyPath: "id" });
-    };
-    openDB.onsuccess = function (event) {
-        //onupgradeneededは接続に成功した時に発生するイベントです。
-        console.log("データベースに接続できました");
-        var db = event.target.result;
-        // 接続を解除する
-        db.close();
-    };
-    openDB.onerror = function (event) {
-        console.log("データベースに接続できませんでした");
-    };
-}
+    console.log("データベースを新規作成、またはバージョン更新しました");
+};
+openDB.onsuccess = function (event) {
+    //onupgradeneededは接続に成功した時に発生するイベントです。
+    console.log("データベースに接続できました");
+    var db = event.target.result;
+    // 接続を解除する
+    db.close();
+};
+openDB.onerror = function (event) {
+    console.log("データベースに接続できませんでした");
+};
 
 function deleteDB() {
     var deleteDB = indexedDB.deleteDatabase(dbName);
