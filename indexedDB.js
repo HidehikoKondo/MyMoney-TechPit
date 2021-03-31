@@ -1,76 +1,42 @@
-const dbName = "kakeiboDB";
-const dbVersion = 1;
-const storeName = "kakeiboStore";
-var db;
+//indexedDBの名前などの設定
+var dbName = "kakeiboDB";
+var storeName = "kakeiboStore";
+var dbVersion = 1;
 
-//データベースに名前を付けて作成する
-var openDB = indexedDB.open(dbName, dbVersion);
+//データベース接続する。データベースが未作成なら新規作成する。
+var database = indexedDB.open(dbName, dbVersion);
 
-//↑で決めた名前のデータベースに接続する。作成済みのデータベースがなければ新規作成する
-openDB.onupgradeneeded = function (event) {
-    //onupgradeneededは、DBの新規作成時とバージョン更新時に発生するイベントです。
-    //ストア作成
+//データベースとオブジェクトストアの作成
+database.onupgradeneeded = function (event) {
     var db = event.target.result;
     db.createObjectStore(storeName, { keyPath: "id" });
-
-    console.log("データベースを新規作成、またはバージョン更新しました");
+    console.log("データベースを新規作成しました");
 };
-openDB.onsuccess = function (event) {
-    //onupgradeneededは接続に成功した時に発生するイベントです。
-    console.log("データベースに接続できました");
+
+//データベースに接続に成功した時に発生するイベント
+database.onsuccess = function (event) {
     var db = event.target.result;
     // 接続を解除する
     db.close();
+    console.log("データベースに接続できました");
 };
-openDB.onerror = function (event) {
+database.onerror = function (event) {
     console.log("データベースに接続できませんでした");
 };
 
-function deleteDB() {
-    var deleteDB = indexedDB.deleteDatabase(dbName);
-
-    deleteDB.onsuccess = function (event) {
-        console.log("データベースを削除しました");
-        // 存在しないDB名を指定してもこっちが実行される
-    };
-
-    deleteDB.onerror = function () {
-        console.log("データベースを削除できませんでした");
-    };
-}
-
-//データの取得
-function selectData() {
-    var openDB = indexedDB.open(dbName);
-    var data = [];
-    //全件取得
-    openDB.onsuccess = function (event) {
-        var db = event.target.result;
-        var trans = db.transaction(storeName, "readonly");
-        var store = trans.objectStore(storeName);
-        store.getAll().onsuccess = function (event) {
-            const rows = event.target.result;
-            data = data.concat(rows);
-        };
-    };
-    console.log(data);
-    return;
-}
-
+//入出金一覧の作成
 function createList() {
-    var openDB = indexedDB.open(dbName);
-    //全件取得
-
-    openDB.onsuccess = function (event) {
+    //データベースからデータを全件取得
+    var database = indexedDB.open(dbName);
+    database.onsuccess = function (event) {
         var db = event.target.result;
-        var trans = db.transaction(storeName, "readonly");
-        var store = trans.objectStore(storeName);
+        var transaction = db.transaction(storeName, "readonly");
+        var store = transaction.objectStore(storeName);
         store.getAll().onsuccess = function (event) {
-            const rows = event.target.result;
-            console.log(rows);
-            console.log(rows[0]);
-
+            var rows = event.target.result;
             var section = document.getElementById("list");
+
+            //入出金一覧のテーブルを作る
             //バッククオートでヒアドキュメント
             var table = `
                 <table>
@@ -84,7 +50,7 @@ function createList() {
                     </th>
                 </tr>
             `;
-
+            //入出金のデータを表示
             rows.forEach((element) => {
                 console.log(element);
                 table += `
@@ -99,19 +65,18 @@ function createList() {
                     </tr>
                 `;
             });
-
             table += `</table>`;
             section.innerHTML = table;
 
-            //円グラフ作成
-            displayPieChart(rows);
+            //円グラフの作成
+            createPieChart(rows);
         };
     };
 }
 
 //フォームの内容をDBに登録する
 function regist() {
-    //入力チェック。falseが返却されたら登録処理を中断
+    //フォームの入力チェック。falseが返却されたら登録処理を中断
     if (!inputCheck()) {
         return;
     }
@@ -119,7 +84,6 @@ function regist() {
     //ラジオボタンの取得
     var radio = document.getElementsByName("balance");
     var balance;
-    //ここでfor文の練習
     for (let i = 0; i < radio.length; i++) {
         if (radio[i].checked) {
             balance = radio[i].value;
@@ -127,6 +91,7 @@ function regist() {
         }
     }
 
+    //フォームに入力された値を取得
     var date = document.getElementById("date").value;
     var amount = document.getElementById("amount").value;
     var memo = document.getElementById("memo").value;
@@ -136,9 +101,12 @@ function regist() {
         category = "収入";
     }
 
-    console.log("category:" + category);
+    //データベースにデータを登録する
     insertData(balance, date, category, amount, memo);
+
+    //入手金一覧を作成
     createList();
+
     alert("登録しました");
 }
 
@@ -158,78 +126,70 @@ function insertData(balance, date, category, amount, memo) {
     };
 
     //データベースを開く
-    var openDB = indexedDB.open(dbName, dbVersion);
-    openDB.onupgradeneeded = function (event) {
+    var database = indexedDB.open(dbName, dbVersion);
+    database.onupgradeneeded = function (event) {
         var db = event.target.result;
-        console.log("zzz");
     };
-    //開いたらデータの登録を実行
-    openDB.onsuccess = function (event) {
+    //データベースを開いたらデータの登録を実行
+    database.onsuccess = function (event) {
         var db = event.target.result;
         var transaction = db.transaction(storeName, "readwrite");
         transaction.oncomplete = function (event) {
-            console.log("transaction complete");
+            console.log("トランザクション完了");
         };
         transaction.onerror = function (event) {
-            console.log("transaction error");
+            console.log("トランザクションエラー");
         };
 
         var store = transaction.objectStore(storeName);
         var addData = store.add(data);
-
         addData.onsuccess = function () {
-            console.log("データが挿入できました");
+            console.log("データが登録できました");
         };
         addData.onerror = function () {
-            console.log("データが挿入できませんでした");
+            console.log("データが登録できませんでした");
         };
 
         db.close();
     };
     //データベースの開けなかった時の処理
-    openDB.onerror = function (event) {
+    database.onerror = function (event) {
         console.log("データベースに接続できませんでした");
     };
 }
 
+//データの削除
 function deleteData(id) {
     //データベースを開く
-    var openDB = indexedDB.open(dbName, dbVersion);
-    openDB.onupgradeneeded = function (event) {
+    var database = indexedDB.open(dbName, dbVersion);
+    database.onupgradeneeded = function (event) {
         var db = event.target.result;
     };
     //開いたら削除実行
-    openDB.onsuccess = function (event) {
+    database.onsuccess = function (event) {
         var db = event.target.result;
-        deleteRecode(id, db);
+        var transaction = db.transaction(storeName, "readwrite");
+        transaction.oncomplete = function (event) {
+            console.log("トランザクション完了");
+        };
+        transaction.onerror = function (event) {
+            console.log("トランザクションエラー");
+        };
+        var store = transaction.objectStore(storeName);
+        var deleteData = store.delete(id);
+        deleteData.onsuccess = function (event) {
+            console.log("削除成功");
+            createList();
+        };
+        deleteData.onerror = function (event) {
+            console.log("削除失敗");
+        };
         db.close();
     };
     //データベースの開けなかった時の処理
-    openDB.onerror = function (event) {
+    database.onerror = function (event) {
         console.log("データベースに接続できませんでした");
     };
 }
 
-function deleteRecode(id, db) {
-    var transaction = db.transaction(storeName, "readwrite");
-    transaction.oncomplete = function (event) {
-        console.log("transaction complete");
-    };
-    transaction.onerror = function (event) {
-        console.log("transaction error");
-    };
-
-    // create an object store on the transaction
-    var objectStore = transaction.objectStore(storeName);
-
-    // Make a request to delete the specified record out of the object store
-    var objectStoreRequest = objectStore.delete(id);
-
-    objectStoreRequest.onsuccess = function (event) {
-        console.log("削除成功");
-        createList();
-    };
-    objectStoreRequest.onerror = function (event) {
-        console.log("削除失敗");
-    };
-}
+function deleteRecode(id, db) {}

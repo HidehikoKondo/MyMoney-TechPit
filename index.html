@@ -31,8 +31,8 @@
         <section id="inputSection">
             <div>
                 <label>収支</label>
+                <input name="balance" type="radio" value="支出" onclick="disableSelectBox(false);" checked>支出
                 <input name="balance" type="radio" value="収入" onclick="disableSelectBox(true);">収入
-                <input name="balance" type="radio" value="支出" onclick="disableSelectBox(false);">支出
                 <label>日付</label>
                 <input type="date" id="date">
                 <label>カテゴリ</label>
@@ -75,6 +75,7 @@
         <!-- <hr> -->
         <section>
             <canvas id="pieChart"></canvas>
+
         </section>
 
     </article>

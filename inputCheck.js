@@ -41,6 +41,7 @@ function inputCheck() {
     return result;
 }
 
+//ラジオボタンによりカテゴリを有効無効切り替え
 function disableSelectBox(disabled) {
     document.getElementById("category").disabled = disabled;
 }

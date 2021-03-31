@@ -1,5 +1,5 @@
 //円グラフの表示
-function displayPieChart(rows) {
+function createPieChart(rows) {
     //円グラフ用データを格納する連想配列
     var pieChartData = {};
 
