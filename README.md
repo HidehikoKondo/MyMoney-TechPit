@@ -1,3 +1,4 @@
-# MyMoney-TechPit
-
-TechPit の JavaScript 教材の家計簿アプリサンプルコード
+# 第2章「家計簿アプリ開発準備」テンプレート
+【TechPit】JavaScriptの基礎を学びながらMoneyFoward風家計簿アプリを作ろう  
+第2章「家計簿アプリ開発準備」のHTML、CSS、JavaScriptのテンプレートです。  
+第2章のカリキュラムを進めるにあたりこのファイルをダウンロード、またはコピー＆ペーストしてご利用ください。
