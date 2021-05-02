@@ -2,15 +2,6 @@ function inputCheck() {
     //チェック結果 true:入力チェックOK　false:未記入アリ
     var result = true;
 
-    //選択した収支のラジオボタンの取得
-    var radio = document.getElementsByName("balance");
-    var balance;
-    for (var i = 0; i < radio.length; i++) {
-        if (radio[i].checked) {
-            balance = radio[i].value;
-            break;
-        }
-    }
     //日付、カテゴリ、金額、メモの取得
     var date = document.getElementById("date").value;
     var category = document.getElementById("category").value;
