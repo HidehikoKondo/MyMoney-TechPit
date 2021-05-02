@@ -5,7 +5,7 @@ function inputCheck() {
     //選択した収支のラジオボタンの取得
     var radio = document.getElementsByName("balance");
     var balance;
-    for (let i = 0; i < radio.length; i++) {
+    for (var i = 0; i < radio.length; i++) {
         if (radio[i].checked) {
             balance = radio[i].value;
             break;
