@@ -1,3 +1,9 @@
+//ラジオボタンによりカテゴリを有効無効切り替え
+function disableSelectBox(disabled) {
+    document.getElementById("category").disabled = disabled;
+}
+
+//収支入力フォームの内容チェック
 function inputCheck() {
     //チェック結果 true:入力チェックOK　false:未記入アリ
     var result = true;
@@ -30,9 +36,4 @@ function inputCheck() {
         return;
     }
     return result;
-}
-
-//ラジオボタンによりカテゴリを有効無効切り替え
-function disableSelectBox(disabled) {
-    document.getElementById("category").disabled = disabled;
 }
