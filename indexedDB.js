@@ -191,5 +191,3 @@ function deleteData(id) {
         console.log("データベースに接続できませんでした");
     };
 }
-
-function deleteRecode(id, db) {}
