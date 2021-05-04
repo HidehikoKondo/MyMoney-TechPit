@@ -11,7 +11,7 @@ database.onupgradeneeded = function (event) {
     var db = event.target.result;
     db.createObjectStore(storeName, { keyPath: "id" });
     console.log("データベースを新規作成しました");
-};
+}
 
 //データベースに接続に成功した時に発生するイベント
 database.onsuccess = function (event) {
@@ -19,59 +19,9 @@ database.onsuccess = function (event) {
     // 接続を解除する
     db.close();
     console.log("データベースに接続できました");
-};
+}
 database.onerror = function (event) {
     console.log("データベースに接続できませんでした");
-};
-
-//入出金一覧の作成
-function createList() {
-    //データベースからデータを全件取得
-    var database = indexedDB.open(dbName);
-    database.onsuccess = function (event) {
-        var db = event.target.result;
-        var transaction = db.transaction(storeName, "readonly");
-        var store = transaction.objectStore(storeName);
-        store.getAll().onsuccess = function (event) {
-            var rows = event.target.result;
-            var section = document.getElementById("list");
-
-            //入出金一覧のテーブルを作る
-            //バッククオートでヒアドキュメント
-            var table = `
-                <table>
-                    <tr>
-                        <th>日付</th>
-                        <th>収支</th>
-                        <th>カテゴリ</th>
-                        <th>金額</th>
-                        <th>メモ</th>
-                        <th>削除
-                    </th>
-                </tr>
-            `;
-            //入出金のデータを表示
-            rows.forEach((element) => {
-                console.log(element);
-                table += `
-                    <tr>
-                        <td>${element.date}</td>
-                        <td>${element.balance}</td>
-                        <td>${element.category}</td>
-                        <td>${element.amount}</td>
-                        <td>${element.memo}</td>
-                        <td><button onClick="deleteData('${element.id}')">×</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            table += `</table>`;
-            section.innerHTML = table;
-
-            //円グラフの作成
-            createPieChart(rows);
-        };
-    };
 }
 
 //フォームの内容をDBに登録する
@@ -155,6 +105,57 @@ function insertData(balance, date, category, amount, memo) {
     //データベースの開けなかった時の処理
     database.onerror = function (event) {
         console.log("データベースに接続できませんでした");
+    };
+}
+
+
+//入出金一覧の作成
+function createList() {
+    //データベースからデータを全件取得
+    var database = indexedDB.open(dbName);
+    database.onsuccess = function (event) {
+        var db = event.target.result;
+        var transaction = db.transaction(storeName, "readonly");
+        var store = transaction.objectStore(storeName);
+        store.getAll().onsuccess = function (event) {
+            var rows = event.target.result;
+            var section = document.getElementById("list");
+
+            //入出金一覧のテーブルを作る
+            //バッククオートでヒアドキュメント
+            var table = `
+                <table>
+                    <tr>
+                        <th>日付</th>
+                        <th>収支</th>
+                        <th>カテゴリ</th>
+                        <th>金額</th>
+                        <th>メモ</th>
+                        <th>削除
+                    </th>
+                </tr>
+            `;
+            //入出金のデータを表示
+            rows.forEach((element) => {
+                console.log(element);
+                table += `
+                    <tr>
+                        <td>${element.date}</td>
+                        <td>${element.balance}</td>
+                        <td>${element.category}</td>
+                        <td>${element.amount}</td>
+                        <td>${element.memo}</td>
+                        <td><button onClick="deleteData('${element.id}')">×</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            table += `</table>`;
+            section.innerHTML = table;
+
+            //円グラフの作成
+            createPieChart(rows);
+        };
     };
 }
 
