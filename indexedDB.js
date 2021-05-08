@@ -35,7 +35,7 @@ function regist() {
     var radio = document.getElementsByName("balance");
     var balance;
     for (var i = 0; i < radio.length; i++) {
-        if (radio[i].checked) {
+        if (radio[i].checked == true) {
             balance = radio[i].value;
             break;
         }
