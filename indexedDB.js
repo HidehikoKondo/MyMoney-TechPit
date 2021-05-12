@@ -63,8 +63,9 @@ function regist() {
 //データの挿入
 function insertData(balance, date, category, amount, memo) {
     //一意のIDを現在の日時から作成
-    var uniqueID = new Date().getTime().toString(16);
-    console.log(date);
+    var uniqueID = new Date().getTime();
+    console.log(uniqueID);
+
     //DBに登録するための連想配列のデータを作成
     var data = {
         id: uniqueID,
