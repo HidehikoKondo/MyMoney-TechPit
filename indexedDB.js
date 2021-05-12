@@ -78,9 +78,7 @@ function insertData(balance, date, category, amount, memo) {
 
     //データベースを開く
     var database = indexedDB.open(dbName, dbVersion);
-    database.onupgradeneeded = function (event) {
-        var db = event.target.result;
-    };
+
     //データベースを開いたらデータの登録を実行
     database.onsuccess = function (event) {
         var db = event.target.result;
