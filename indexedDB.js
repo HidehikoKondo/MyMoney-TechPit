@@ -56,8 +56,6 @@ function regist() {
 
     //入手金一覧を作成
     createList();
-
-    alert("登録しました");
 }
 
 //データの挿入
@@ -79,6 +77,12 @@ function insertData(balance, date, category, amount, memo) {
     //データベースを開く
     var database = indexedDB.open(dbName, dbVersion);
 
+    //データベースの開けなかった時の処理
+    database.onerror = function (event) {
+        console.log("データベースに接続できませんでした");
+    };
+
+
     //データベースを開いたらデータの登録を実行
     database.onsuccess = function (event) {
         var db = event.target.result;
@@ -94,16 +98,13 @@ function insertData(balance, date, category, amount, memo) {
         var addData = store.add(data);
         addData.onsuccess = function () {
             console.log("データが登録できました");
+            alert("登録しました");
         };
         addData.onerror = function () {
             console.log("データが登録できませんでした");
         };
 
         db.close();
-    };
-    //データベースの開けなかった時の処理
-    database.onerror = function (event) {
-        console.log("データベースに接続できませんでした");
     };
 }
 
