@@ -117,8 +117,9 @@ function createList() {
         var db = event.target.result;
         var transaction = db.transaction(storeName, "readonly");
         var store = transaction.objectStore(storeName);
-        store.getAll().onsuccess = function (event) {
-            var rows = event.target.result;
+        store.getAll().onsuccess = function (data) {
+            console.log(data);
+            var rows = data.target.result;
             var section = document.getElementById("list");
 
             //入出金一覧のテーブルを作る
