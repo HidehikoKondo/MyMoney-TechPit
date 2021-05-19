@@ -61,7 +61,7 @@ function regist() {
 //データの挿入
 function insertData(balance, date, category, amount, memo) {
     //一意のIDを現在の日時から作成
-    var uniqueID = new Date().getTime();
+    var uniqueID = new Date().getTime().toString();
     console.log(uniqueID);
 
     //DBに登録するための連想配列のデータを作成
@@ -146,7 +146,7 @@ function createList() {
                         <td>${element.category}</td>
                         <td>${element.amount}</td>
                         <td>${element.memo}</td>
-                        <td><button onClick="deleteData('${element.id}')">×</button>
+                        <td><button onclick="deleteData('${element.id}')">×</button>
                         </td>
                     </tr>
                 `;
