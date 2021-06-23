@@ -5,15 +5,18 @@
     <title>MyMoney SampleCode</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
-    <!--スタイルシートの読み込み-->
+    <!--sakuraの読み込みと、画面レイアウトのスタイルシートの読み込み-->
     <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura-earthly.css" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
-    <!--IndexedDB関連のjs読み込み-->
+
+    <!--IndexedDB関連のJavaScriptの読み込み-->
     <script src="indexedDB.js">s</script>
-    <!-- グラフ表示のJavaScriptの読み込み -->
+
+    <!-- Chart.jsとグラフ表示のJavaScriptの読み込み -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="graph.js"></script>
-    <!--フォーム入力チェックのjs読み込み-->
+
+    <!--フォーム入力チェックのJavaScript読み込み-->
     <script src="inputCheck.js"></script>
 </head>
 
@@ -67,6 +70,7 @@
         <!-- 入出金一覧 -->
         <h2 id="inOutList">入出金一覧</h2>
         <section id="list">
+            <!-- ここに入出金一覧を表示します。 -->
             <script>
                 createList();
             </script>
@@ -74,10 +78,9 @@
 
         <!-- グラフ -->
         <h2 id="graph">グラフ</h2>
-        <!-- <hr> -->
         <section>
+            <!-- ここにグラフを表示します。 -->
             <canvas id="pieChart"></canvas>
-
         </section>
 
     </article>

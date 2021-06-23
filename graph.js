@@ -1,11 +1,9 @@
-//円グラフの表示
 function createPieChart(rows) {
     //円グラフ用データを格納する連想配列
-    var pieChartData = {};
+    let pieChartData = {};
 
     //データベースから入手金一覧のデータをカテゴリ毎に取り出して集計。収入は除外する。
-    var amount = 0;
-    var category = "";
+    let category = "";
     rows.forEach(function (data) {
         category = data.category;
         if (category != "収入") {
@@ -19,15 +17,15 @@ function createPieChart(rows) {
     });
 
     //円グラフ用にカテゴリと合計金額を配列に入れる
-    var keyArray = [];
-    var valueArray = [];
+    let keyArray = [];
+    let valueArray = [];
     for (key in pieChartData) {
         keyArray.push(key);
         valueArray.push(pieChartData[key]);
     }
 
     //Chart.jsの機能を使用して円グラフを表示
-    var pieChart = document.getElementById("pieChart");
+    let pieChart = document.getElementById("pieChart");
     new Chart(pieChart, {
         type: "pie",
         data: {
@@ -55,4 +53,5 @@ function createPieChart(rows) {
             },
         },
     });
+
 }

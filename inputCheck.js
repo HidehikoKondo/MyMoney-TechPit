@@ -3,17 +3,15 @@ function disableSelectBox(disabled) {
     document.getElementById("category").disabled = disabled;
 }
 
-
-
 //収支入力フォームの内容チェック
 function inputCheck() {
     //チェック結果 true:入力チェックOK　false:未記入アリ
-    var result = true;
+    let result = true;
 
     //選択した収支のラジオボタンの取得
-    var radio = document.getElementsByName("balance");
-    var balance;
-    for (var i = 0; i < radio.length; i++) {
+    let radio = document.getElementsByName("balance");
+    let balance;
+    for (let i = 0; i < radio.length; i++) {
         if (radio[i].checked == true) {
             balance = radio[i].value;
             break;
@@ -21,10 +19,10 @@ function inputCheck() {
     }
 
     //日付、カテゴリ、金額、メモの取得
-    var date = document.getElementById("date").value;
-    var category = document.getElementById("category").value;
-    var amount = document.getElementById("amount").value;
-    var memo = document.getElementById("memo").value;
+    let date = document.getElementById("date").value;
+    let category = document.getElementById("category").value;
+    let amount = document.getElementById("amount").value;
+    let memo = document.getElementById("memo").value;
 
     //入力チェック。未記入があればresultをfalseにする
     if (date == "") {
@@ -41,4 +39,5 @@ function inputCheck() {
         alert("メモが未記入です");
     }
     return result;
+
 }
